@@ -6,6 +6,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseLibrary", "DatabaseLibrary\DatabaseLibrary.csproj", "{D19E8B36-A626-41E9-A9AE-4F773914D84D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdmissionLibrary", "AdmissionLibrary\AdmissionLibrary.csproj", "{3B3AE089-F2D3-45B3-B018-09327D090079}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D19E8B36-A626-41E9-A9AE-4F773914D84D} = {D19E8B36-A626-41E9-A9AE-4F773914D84D}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsApp", "WindowsApp\WindowsApp.csproj", "{172DE806-317A-41AF-AE31-9C58A1471FE8}"
 EndProject

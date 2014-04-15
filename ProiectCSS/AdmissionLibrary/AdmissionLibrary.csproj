@@ -41,7 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admission.cs" />
+    <Compile Include="Applicant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Result.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DatabaseLibrary\DatabaseLibrary.csproj">
+      <Project>{D19E8B36-A626-41E9-A9AE-4F773914D84D}</Project>
+      <Name>DatabaseLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

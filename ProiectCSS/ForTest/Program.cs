@@ -14,8 +14,10 @@ namespace ForTest
 
         private void Run()
         {
+          
             Console.WriteLine(dao.GetHelloWorldFromDB());
             Console.WriteLine(admission.GetHelloWorldFromAdmission());
+            admission.test();
         }
 
         static void Main(string[] args)
@@ -23,5 +25,9 @@ namespace ForTest
             new Program().Run();
             Console.Read();
         }
+
+
+
+   
     }
 }
