@@ -1,8 +1,19 @@
-﻿@{
+﻿@model AdmissionLibrary.Applicant
+
+@{
     ViewBag.Title = "Main";
 }
 
 <h2>Admission page</h2>
 
-<p>@ViewBag.MessageDB</p>
-<p>@ViewBag.MessageAdmission</p>
+<p>@ViewBag.DAO.GetHelloWorldFromDB()</p>
+<p>@ViewBag.Admission.GetHelloWorldFromAdmission()</p>
+
+@using (Html.BeginForm("Index", "Main", FormMethod.Post))
+{
+    <p>
+        @Html.LabelFor(model => model.FirstName)
+        @Html.TextBoxFor(model => model.FirstName)
+    </p>
+    <p><input type="submit" value="Insert applicant" /></p>
+}

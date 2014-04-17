@@ -10,16 +10,36 @@ namespace WebApp.Controllers
 {
     public class MainController : Controller
     {
-        private DAO dao = new DAO();
-        private Admission admission = new Admission();
+        private DAO dao;
+        private Admission admission;
+
+        public MainController()
+        {
+            dao = new DAO();
+            admission = new Admission();
+        }
 
         //
         // GET: /Main/
 
+        [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.MessageDB = dao.GetHelloWorldFromDB();
-            ViewBag.MessageAdmission = admission.GetHelloWorldFromAdmission();
+            ViewBag.DAO = dao;
+            ViewBag.Admission = admission;
+            return View();
+        }
+
+        //
+        // POST: /Main/
+
+        [HttpPost]
+        public ActionResult Index(Applicant applicant)
+        {
+            Console.WriteLine(applicant.FirstName);
+
+            ViewBag.DAO = dao;
+            ViewBag.Admission = admission;
             return View();
         }
 

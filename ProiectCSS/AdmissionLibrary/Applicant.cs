@@ -18,6 +18,11 @@ namespace AdmissionLibrary
         public double AvgExamen { get; set; }
         public double DomainMark { get; set; }
         public double GeneralAverage { get; set; }
+
+        public Applicant()
+        {
+
+        }
        
         public Applicant(string firstName, string lastName, string fatherInitial, string city, string locality,
                          double testMark, double avgExamen, double domainMark)
