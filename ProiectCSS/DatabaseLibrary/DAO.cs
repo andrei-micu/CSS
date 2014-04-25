@@ -23,9 +23,7 @@ namespace DatabaseLibrary
                                        applicant.Locality, applicant.SchoolName, applicant.TestMark.ToString(), applicant.AvgExamen.ToString(), 
                                        applicant.DomainMark.ToString(), applicant.GeneralAverage.ToString() };
             List<string> finalApplicants;
-            checkCreateFile(APPLICANTS_FILE);
-            string configFile = APPLICANTS_FILE;
-            List<string> allApplicants = File.ReadAllLines(configFile).ToList();
+            List<string> allApplicants = File.ReadAllLines(APPLICANTS_FILE).ToList();
             finalApplicants = allApplicants.Where(x => x.IndexOf(applicant.Cnp) < 0).ToList();
             if (finalApplicants.Count == allApplicants.Count)
             {
@@ -41,12 +39,11 @@ namespace DatabaseLibrary
         {
             checkCreateFile(APPLICANTS_FILE);
             List<string> finalApplicants;
-            string configFile = APPLICANTS_FILE;
-            List<string> allApplicants = File.ReadAllLines(configFile).ToList();
+            List<string> allApplicants = File.ReadAllLines(APPLICANTS_FILE).ToList();
             finalApplicants = allApplicants.Where(x => x.IndexOf(cnp) < 0).ToList();
             if (finalApplicants.Count < allApplicants.Count)
             {
-                File.WriteAllLines(configFile, finalApplicants.ToArray());
+                File.WriteAllLines(APPLICANTS_FILE, finalApplicants.ToArray());
             }
             else
             {
@@ -61,13 +58,12 @@ namespace DatabaseLibrary
                                        applicant.Locality, applicant.SchoolName, applicant.TestMark.ToString(), applicant.AvgExamen.ToString(), 
                                        applicant.DomainMark.ToString(), applicant.GeneralAverage.ToString() };
             List<string> finalApplicants;
-            string configFile = APPLICANTS_FILE;
-            List<string> allApplicants = File.ReadAllLines(configFile).ToList();
+            List<string> allApplicants = File.ReadAllLines(APPLICANTS_FILE).ToList();
             finalApplicants = allApplicants.Where(x => x.IndexOf(cnp) < 0).ToList();
             if (finalApplicants.Count < allApplicants.Count)
             {
                 finalApplicants.Add(string.Join(",", applicantInfo));
-                File.WriteAllLines(configFile, finalApplicants.ToArray());
+                File.WriteAllLines(APPLICANTS_FILE, finalApplicants.ToArray());
             }
             else
             {
