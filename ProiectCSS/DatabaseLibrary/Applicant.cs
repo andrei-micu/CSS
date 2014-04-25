@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace AdmissionLibrary
+namespace DatabaseLibrary
 {
     public class Applicant: IComparable<Applicant>
     {
+        public string Cnp { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FatherInitial { get; set; }
         public string City { get; set; }
         public string Locality { get; set; }
         public string SchoolName { get; set; }
-        public string Identifier { get; set; }
         public double TestMark { get; set; }
         public double AvgExamen { get; set; }
         public double DomainMark { get; set; }
@@ -24,14 +24,16 @@ namespace AdmissionLibrary
 
         }
        
-        public Applicant(string firstName, string lastName, string fatherInitial, string city, string locality,
-                         double testMark, double avgExamen, double domainMark)
+        public Applicant(string cnp, string firstName, string lastName, string fatherInitial, string city, string locality, 
+                         string schoolName, double testMark, double avgExamen, double domainMark)
         {
+            this.Cnp = cnp;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.FatherInitial = fatherInitial;
             this.City = city;
             this.Locality = locality;
+            this.SchoolName = schoolName;
             this.TestMark = testMark;
             this.AvgExamen = avgExamen;
             this.DomainMark = domainMark;
