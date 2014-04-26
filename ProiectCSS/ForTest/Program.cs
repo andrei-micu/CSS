@@ -17,11 +17,10 @@ namespace ForTest
           
             Console.WriteLine(dao.GetHelloWorldFromDB());
             Console.WriteLine(admission.GetHelloWorldFromAdmission());
-
+            
             //-----------------------------------
 
-            //test get applicants and set results
-            admission.setResults();
+            dao.insertApplicants();
 
             //test get applicants
             //List<Applicant> applicants = dao.getApplicants();
@@ -45,15 +44,16 @@ namespace ForTest
             //}
 
             //test insert
-            //admission.insertApplicant(new Applicant("2900680155208", "Alexandra", "Miron", "V.", "Iasi", "Iasi", "Colegiul National\"Emil Racovita\"", 8.70, 9.30, 10.0));
+            admission.insertApplicant(new Applicant("2900680155208", "Alexandra", "Miron", "V.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.70, 9.30, 10.0));
 
             //test delete
-            //dao.deleteApplicant("2900680155208");
+            dao.deleteApplicant("1891212566544");
 
             //test update
-            //dao.updateApplicant("2900212987654", new Applicant("2900212987654", "Ioana", "Leonte", "V.", "Iasi", "Iasi", "Colegiul National\"Emil Racovita\"", 8.70, 9.30, 10.0));
+            dao.updateApplicant("2900212987654", new Applicant("2900212987654", "Ioana", "Leonte", "V.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.70, 9.30, 10.0));
 
-
+            //test get applicants and set results
+            admission.setResults();
         }
 
         static void Main(string[] args)
