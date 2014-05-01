@@ -7,7 +7,7 @@
 <h2>Admission page</h2>
 
 <h3>Applicants:</h3>
-<table style="border: 1px solid black;">
+<table class="fancytable">
     <tr>
         <th>Cnp</th>
         <th>FirstName</th>
@@ -38,11 +38,55 @@
     }
 </table>
 
+<h3>Results:</h3>
+<table class="fancytable">
+
+</table>
+
+<h3>Insert/Update/Delete applicants:</h3>
 @using (Html.BeginForm("Index", "Main", FormMethod.Post))
 {
-    <p>
-        @Html.LabelFor(model => model.FirstName)
-        @Html.TextBoxFor(model => model.FirstName)
-    </p>
-    <p><input type="submit" value="Insert applicant" /></p>
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.Cnp)</td>
+            <td>@Html.TextBoxFor(model => model.Cnp)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.FirstName)</td>
+            <td>@Html.TextBoxFor(model => model.FirstName)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.LastName)</td>
+            <td>@Html.TextBoxFor(model => model.LastName)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.FatherInitial)</td>
+            <td>@Html.TextBoxFor(model => model.FatherInitial)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.City)</td>
+            <td>@Html.TextBoxFor(model => model.City)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Locality)</td>
+            <td>@Html.TextBoxFor(model => model.Locality)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.SchoolName)</td>
+            <td>@Html.TextBoxFor(model => model.SchoolName)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.TestMark)</td>
+            <td>@Html.TextBoxFor(model => model.TestMark)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.AvgExamen)</td>
+            <td>@Html.TextBoxFor(model => model.AvgExamen)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.DomainMark)</td>
+            <td>@Html.TextBoxFor(model => model.DomainMark)</td>
+        </tr>
+    </table>
+    <p><input type="submit" name="submitAction" value="Insert applicant" /></p>
 }

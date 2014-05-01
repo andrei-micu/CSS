@@ -38,7 +38,6 @@ namespace DatabaseLibrary
             this.AvgExamen = avgExamen;
             this.DomainMark = domainMark;
 
-
             double average = this.TestMark * 0.5 + this.DomainMark * 0.3 + this.AvgExamen * 0.2;
             this.GeneralAverage = average;
         }

@@ -17,9 +17,6 @@ namespace WebApp.Controllers
         {
             dao = new DAO();
             admission = new Admission(dao);
-
-            //initialize DB
-            admission.populateDB();
         }
 
         //
@@ -37,13 +34,18 @@ namespace WebApp.Controllers
         // POST: /Main/
 
         [HttpPost]
-        public ActionResult Index(Applicant applicant)
+        public ActionResult Index(Applicant applicant, string submitAction)
         {
-            Console.WriteLine(applicant.FirstName);
+            dispatchAction(applicant, submitAction);
 
             ViewBag.DAO = dao;
             ViewBag.Admission = admission;
             return View();
+        }
+
+        private void dispatchAction(Applicant applicant, string submitAction)
+        {
+
         }
 
     }
