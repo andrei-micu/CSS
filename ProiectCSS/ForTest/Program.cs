@@ -9,18 +9,17 @@ namespace ForTest
 {
     class Program
     {
-        private DAO dao = new DAO();
-        private Admission admission = new Admission();
-
         private void Run()
         {
+            DAO dao = new DAO();
+            Admission admission = new Admission(dao);
           
-            Console.WriteLine(dao.GetHelloWorldFromDB());
-            Console.WriteLine(admission.GetHelloWorldFromAdmission());
+            //Console.WriteLine(dao.GetHelloWorldFromDB());
+            //Console.WriteLine(admission.GetHelloWorldFromAdmission());
             
             //-----------------------------------
 
-            dao.insertApplicants();
+            admission.populateDB();
 
             //test get applicants
             //List<Applicant> applicants = dao.getApplicants();
@@ -50,10 +49,10 @@ namespace ForTest
             dao.deleteApplicant("1891212566544");
 
             //test update
-            dao.updateApplicant("2900212987654", new Applicant("2900212987654", "Ioana", "Leonte", "V.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.70, 9.30, 10.0));
+            dao.updateApplicant(new Applicant("2900212987654", "Ioana", "Leonte", "V.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.70, 9.30, 10.0));
 
             //test get applicants and set results
-            admission.setResults();
+            admission.calculateAndPublishResults();
         }
 
         static void Main(string[] args)

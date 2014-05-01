@@ -16,10 +16,10 @@ namespace WebApp.Controllers
         public MainController()
         {
             dao = new DAO();
-            admission = new Admission();
+            admission = new Admission(dao);
 
             //initialize DB
-            dao.insertApplicants();
+            admission.populateDB();
         }
 
         //
