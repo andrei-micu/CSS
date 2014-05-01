@@ -9,8 +9,11 @@ namespace AdmissionLibrary
     public class Admission
     {
         private DAO dao;
-        private int BUGET_PLACES = 1;//100;
-        private int TAX_PLACES = 5;//150;
+        private const int BUGET_PLACES = 1;//100;
+        private const int TAX_PLACES = 5;//150;
+        private const string BUGET = "ADMIS/BUGET";
+        private const string TAX = "ADMIS/TAXA";
+        private const string REJECT = "RESPINS";
 
         public Admission(DAO dao)
         {
@@ -55,17 +58,17 @@ namespace AdmissionLibrary
             int index = 0;
             while (index < BUGET_PLACES)
             {
-                results.Add(new Result(applicants.ElementAt(index), "ADMIS/BUGET"));
+                results.Add(new Result(applicants.ElementAt(index), BUGET));
                 index++;
             }
             while (index < BUGET_PLACES + TAX_PLACES)
             {
-                results.Add(new Result(applicants.ElementAt(index), "ADMIS/TAXA"));
+                results.Add(new Result(applicants.ElementAt(index), TAX));
                 index++;
             }
             while (index < applicants.Count)
             {
-                results.Add(new Result(applicants.ElementAt(index), "RESPINS"));
+                results.Add(new Result(applicants.ElementAt(index), REJECT));
                 index++;
             }
             dao.insertResults(results);
