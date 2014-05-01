@@ -49,7 +49,7 @@ namespace ForTest
             dao.deleteApplicant("1891212566544");
 
             //test update
-            dao.updateApplicant(new Applicant("2900212987654", "Ioana", "Leonte", "V.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.70, 9.30, 10.0));
+            dao.updateApplicant("2900212987654", new Applicant("2900212987654", "Ioana", "Leonte", "V.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.70, 9.30, 10.0));
 
             //test get applicants and set results
             admission.calculateAndPublishResults();

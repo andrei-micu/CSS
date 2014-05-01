@@ -33,9 +33,9 @@ namespace AdmissionLibrary
             dao.deleteApplicant(cnp);
         }
 
-        public void updateApplicant(Applicant applicant)
+        public void updateApplicant(string cnp, Applicant applicant)
         {
-            dao.updateApplicant(applicant);
+            dao.updateApplicant(cnp, applicant);
         }
 
 

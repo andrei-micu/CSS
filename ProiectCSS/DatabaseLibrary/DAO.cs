@@ -60,7 +60,7 @@ namespace DatabaseLibrary
             }
         }
 
-        public void updateApplicant(Applicant applicant)
+        public void updateApplicant(string cnp, Applicant applicant)
         {
             checkCreateFile(APPLICANTS_FILE);
 
@@ -69,7 +69,7 @@ namespace DatabaseLibrary
                                        applicant.DomainMark.ToString(), applicant.GeneralAverage.ToString() };
             List<string> finalApplicants;
             List<string> allApplicants = File.ReadAllLines(APPLICANTS_FILE).ToList();
-            finalApplicants = allApplicants.Where(x => x.IndexOf(applicant.Cnp) < 0).ToList();
+            finalApplicants = allApplicants.Where(x => x.IndexOf(cnp) < 0).ToList();
             if (finalApplicants.Count < allApplicants.Count)
             {
                 finalApplicants.Add(string.Join(",", applicantInfo));
