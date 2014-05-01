@@ -17,6 +17,9 @@ namespace WebApp.Controllers
         {
             dao = new DAO();
             admission = new Admission();
+
+            //initialize DB
+            dao.insertApplicants();
         }
 
         //

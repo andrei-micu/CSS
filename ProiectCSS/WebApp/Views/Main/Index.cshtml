@@ -1,4 +1,4 @@
-﻿@model AdmissionLibrary.Applicant
+﻿@model DatabaseLibrary.Applicant
 
 @{
     ViewBag.Title = "Main";
@@ -6,8 +6,37 @@
 
 <h2>Admission page</h2>
 
-<p>@ViewBag.DAO.GetHelloWorldFromDB()</p>
-<p>@ViewBag.Admission.GetHelloWorldFromAdmission()</p>
+<h3>Applicants:</h3>
+<table style="border: 1px solid black;">
+    <tr>
+        <th>Cnp</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>FatherInitial</th>
+        <th>City</th>
+        <th>Locality</th>
+        <th>SchoolName</th>
+        <th>TestMark</th>
+        <th>AvgExamen</th>
+        <th>DomainMark</th>
+        <th>GeneralAverage</th>
+    </tr>
+    @foreach(DatabaseLibrary.Applicant applicant in ViewBag.DAO.getApplicants()){
+        <tr>
+            <td>@applicant.Cnp</td>
+            <td>@applicant.FirstName</td>
+            <td>@applicant.LastName</td>
+            <td>@applicant.FatherInitial</td>
+            <td>@applicant.City</td>
+            <td>@applicant.Locality</td>
+            <td>@applicant.SchoolName</td>
+            <td>@applicant.TestMark</td>
+            <td>@applicant.AvgExamen</td>
+            <td>@applicant.DomainMark</td>
+            <td>@applicant.GeneralAverage</td>
+        </tr>
+    }
+</table>
 
 @using (Html.BeginForm("Index", "Main", FormMethod.Post))
 {
