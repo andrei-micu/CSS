@@ -27,7 +27,7 @@ namespace WindowsApp
         private void MainWindow_Load(object sender, EventArgs e)
         {
             admission.populateDB();
-            applicants_datagridview.DataSource = dao.getApplicants();
+            UpdateData();
         }
 
         private void pin_textbox_KeyPress(object sender, KeyPressEventArgs e)
@@ -119,8 +119,25 @@ namespace WindowsApp
 
                 admission.insertApplicant(new Applicant(pin, first_name, last_name, father_initial, city, locality,
                     school_name, test_mark, exam_average_mark, domain_mark));
-                applicants_datagridview.DataSource = dao.getApplicants();
+                UpdateData();
             }
+        }
+
+        private void UpdateData()
+        {
+            applicants_datagridview.DataSource = dao.getApplicants();
+            admission.calculateAndPublishResults();
+            results_datagridview.DataSource = dao.getResults().Select(x => new
+            {
+                x.applicant.FirstName,
+                x.applicant.LastName,
+                x.applicant.FatherInitial,
+                x.applicant.TestMark,
+                x.applicant.AvgExamen,
+                x.applicant.DomainMark,
+                x.applicant.GeneralAverage,
+                x.result
+            }).ToList();
         }
     }
 }

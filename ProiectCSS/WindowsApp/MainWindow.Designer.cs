@@ -316,6 +316,8 @@
             // 
             // applicants_datagridview
             // 
+            this.applicants_datagridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.applicants_datagridview.BackgroundColor = System.Drawing.SystemColors.Window;
             this.applicants_datagridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.applicants_datagridview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.applicants_datagridview.Location = new System.Drawing.Point(3, 3);
@@ -351,18 +353,20 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1146, 422);
+            this.tabPage2.Size = new System.Drawing.Size(1149, 422);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Results";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // results_datagridview
             // 
+            this.results_datagridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.results_datagridview.BackgroundColor = System.Drawing.SystemColors.Window;
             this.results_datagridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.results_datagridview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.results_datagridview.Location = new System.Drawing.Point(3, 3);
             this.results_datagridview.Name = "results_datagridview";
-            this.results_datagridview.Size = new System.Drawing.Size(1140, 416);
+            this.results_datagridview.Size = new System.Drawing.Size(1143, 416);
             this.results_datagridview.TabIndex = 0;
             // 
             // MainWindow
@@ -374,6 +378,7 @@
             this.Controls.Add(this.submit_button);
             this.Controls.Add(this.data_tablelayoutpanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "Admission Form";
             this.Load += new System.EventHandler(this.MainWindow_Load);

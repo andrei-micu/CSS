@@ -71,6 +71,7 @@ namespace AdmissionLibrary
                 results.Add(new Result(applicants.ElementAt(index), REJECT));
                 index++;
             }
+            dao.clearResults();
             dao.insertResults(results);
         }
 
