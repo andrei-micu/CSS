@@ -57,12 +57,12 @@ namespace AdmissionLibrary
             List<Result> results = new List<Result>();
             setTop(applicants);
             int index = 0;
-            while (index < BUGET_PLACES)
+            while (index < BUGET_PLACES && index < applicants.Count)
             {
                 results.Add(new Result(applicants.ElementAt(index), BUGET));
                 index++;
             }
-            while (index < BUGET_PLACES + TAX_PLACES)
+            while (index < BUGET_PLACES + TAX_PLACES && index < applicants.Count)
             {
                 results.Add(new Result(applicants.ElementAt(index), TAX));
                 index++;
