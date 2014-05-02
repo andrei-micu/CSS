@@ -312,7 +312,7 @@
             this.submit_button.TabIndex = 11;
             this.submit_button.Text = "Add";
             this.submit_button.UseVisualStyleBackColor = true;
-            this.submit_button.Click += new System.EventHandler(this.submit_button_Click);
+            this.submit_button.Click += new System.EventHandler(this.add_button_Click);
             // 
             // applicants_datagridview
             // 
@@ -324,6 +324,8 @@
             this.applicants_datagridview.Name = "applicants_datagridview";
             this.applicants_datagridview.Size = new System.Drawing.Size(1143, 416);
             this.applicants_datagridview.TabIndex = 12;
+            this.applicants_datagridview.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.applicants_datagridview_CellValueChanged);
+            this.applicants_datagridview.KeyDown += new System.Windows.Forms.KeyEventHandler(this.applicants_datagridview_KeyDown);
             // 
             // data_tabcontrol
             // 

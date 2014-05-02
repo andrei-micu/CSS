@@ -26,7 +26,10 @@ namespace WindowsApp
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            admission.populateDB();
+            if (dao.getApplicants().Count == 0)
+            {
+                admission.populateDB();
+            }          
             UpdateData();
         }
 
@@ -98,9 +101,9 @@ namespace WindowsApp
             }
         }
 
-        private void submit_button_Click(object sender, EventArgs e)
+        private void add_button_Click(object sender, EventArgs e)
         {
-            if (this.data_tablelayoutpanel.Controls.OfType<TextBox>().Any(x => string.IsNullOrEmpty(x.Text)))
+            if (data_tablelayoutpanel.Controls.OfType<TextBox>().Any(x => string.IsNullOrEmpty(x.Text)))
             {
                 MessageBox.Show("Please complete all fields!", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
             }
@@ -119,6 +122,8 @@ namespace WindowsApp
 
                 admission.insertApplicant(new Applicant(pin, first_name, last_name, father_initial, city, locality,
                     school_name, test_mark, exam_average_mark, domain_mark));
+
+                data_tablelayoutpanel.Controls.OfType<TextBox>().ToList().ForEach(x => x.Text = string.Empty);
                 UpdateData();
             }
         }
@@ -139,5 +144,41 @@ namespace WindowsApp
                 x.result
             }).ToList();
         }
+
+        private void applicants_datagridview_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            string cnp = (string)applicants_datagridview.Rows[e.RowIndex].Cells[0].Value;
+            Applicant applicant = dao.getApplicants()[e.RowIndex];
+            string property = applicants_datagridview.Columns[e.ColumnIndex].Name;
+            
+            if (e.ColumnIndex > 6)
+            {
+                double value = (double)applicants_datagridview.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                applicant.GetType().GetProperty(property).SetValue(applicant, value, null);
+            }
+            else
+            {
+                string value = (string)applicants_datagridview.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                applicant.GetType().GetProperty(property).SetValue(applicant, value, null);
+            }
+            
+            admission.updateApplicant(cnp, applicant);
+            UpdateData();
+        }
+
+        private void applicants_datagridview_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && applicants_datagridview.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewRow row in applicants_datagridview.SelectedRows)
+                {
+                    admission.deleteApplicant(row.Cells[0].Value.ToString());
+                }
+
+                UpdateData();
+            }
+        }
+
+        
     }
 }

@@ -35,6 +35,7 @@ namespace AdmissionLibrary
 
         public void updateApplicant(string cnp, Applicant applicant)
         {
+            applicant.GeneralAverage = calculateAverage(applicant);
             dao.updateApplicant(cnp, applicant);
         }
 
