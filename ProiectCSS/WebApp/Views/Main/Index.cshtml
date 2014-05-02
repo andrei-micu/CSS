@@ -40,7 +40,30 @@
 
 <h3>Results:</h3>
 <table class="fancytable">
-
+    <tr>
+        <th>Cnp</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>FatherInitial</th>
+        <th>TestMark</th>
+        <th>AvgExamen</th>
+        <th>DomainMark</th>
+        <th>GeneralAverage</th>
+        <th>Result</th>
+    </tr>
+    @foreach(DatabaseLibrary.Result result in ViewBag.DAO.getResults()){
+        <tr>
+            <td>@result.applicant.Cnp</td>
+            <td>@result.applicant.FirstName</td>
+            <td>@result.applicant.LastName</td>
+            <td>@result.applicant.FatherInitial</td>
+            <td>@result.applicant.TestMark</td>
+            <td>@result.applicant.AvgExamen</td>
+            <td>@result.applicant.DomainMark</td>
+            <td>@result.applicant.GeneralAverage</td>
+            <td>@result.result</td>
+        </tr>
+    }
 </table>
 
 <h3>Insert/Update/Delete applicants:</h3>
@@ -88,5 +111,10 @@
             <td>@Html.TextBoxFor(model => model.DomainMark)</td>
         </tr>
     </table>
-    <p><input type="submit" name="submitAction" value="Insert applicant" /></p>
+    <p>
+        <input type="submit" name="submitAction" value="Insert applicant" />
+        <input type="submit" name="submitAction" value="Update applicant" />
+        <input type="submit" name="submitAction" value="Delete applicant" />
+        <input type="submit" name="submitAction" value="Repopulate DB" />
+    </p>
 }

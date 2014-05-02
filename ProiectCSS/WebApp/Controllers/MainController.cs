@@ -25,6 +25,8 @@ namespace WebApp.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            admission.calculateAndPublishResults();
+
             ViewBag.DAO = dao;
             ViewBag.Admission = admission;
             return View();
@@ -38,14 +40,26 @@ namespace WebApp.Controllers
         {
             dispatchAction(applicant, submitAction);
 
-            ViewBag.DAO = dao;
-            ViewBag.Admission = admission;
-            return View();
+            return Index();
         }
 
         private void dispatchAction(Applicant applicant, string submitAction)
         {
-
+            switch (submitAction)
+            {
+                case "Insert applicant":
+                    admission.insertApplicant(applicant);
+                    break;
+                case "Update applicant":
+                    admission.updateApplicant(applicant.Cnp, applicant);
+                    break;
+                case "Delete applicant":
+                    admission.deleteApplicant(applicant.Cnp);
+                    break;
+                case "Repopulate DB":
+                    admission.populateDB();
+                    break;
+            }
         }
 
     }
