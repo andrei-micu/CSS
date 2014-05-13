@@ -262,17 +262,14 @@ namespace DatabaseLibrary
 
         public int CompareTo(IApplicant applicant)
         {
-            if (this.GeneralAverage == applicant.GeneralAverage)
-            {
-                if (this.TestMark == applicant.TestMark)
-                {
-                    return applicant.AvgExamen.CompareTo(this.AvgExamen);
-                }
+            //return result of compareTo is reverse because we want a descending sorting
+            if (this.GeneralAverage != applicant.GeneralAverage)
+                return applicant.GeneralAverage.CompareTo(this.GeneralAverage);
 
+            if (this.TestMark != applicant.TestMark)
                 return applicant.TestMark.CompareTo(this.TestMark);
-            }
 
-            return applicant.GeneralAverage.CompareTo(this.GeneralAverage);
+            return applicant.AvgExamen.CompareTo(this.AvgExamen);
         }
 
         

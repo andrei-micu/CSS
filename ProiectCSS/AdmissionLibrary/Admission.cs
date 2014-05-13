@@ -87,7 +87,7 @@ namespace AdmissionLibrary
 
         private void setTop(IList<IApplicant> applicants)
         {
-            (applicants.Cast<IApplicant>().ToList()).Sort();
+            ((List<IApplicant>)applicants).Sort();
         }
 
         /* --- Popularea bazei de date cu date de test --- */

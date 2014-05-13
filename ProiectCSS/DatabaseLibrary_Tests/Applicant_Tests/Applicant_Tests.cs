@@ -12,6 +12,7 @@ namespace DatabaseLibrary_Tests.Applicant_Tests
     class Applicant_Tests
     {
         IApplicant applicant;
+        IApplicant applicantToCompare;
 
         private string[] invalidCnp = { "", "123", "asdf", "asdfghjklerty", "=true" };
         private string[] validCnp = { "1234567890123", "5674893029485"};
@@ -32,6 +33,7 @@ namespace DatabaseLibrary_Tests.Applicant_Tests
         public void setUp()
         {
             applicant = new Applicant();
+            applicantToCompare = new Applicant();
         }
 
         [TestCaseSource("invalidCnp")]
@@ -173,6 +175,46 @@ namespace DatabaseLibrary_Tests.Applicant_Tests
             applicant.GeneralAverage = value;
             Assert.AreEqual(value, applicant.GeneralAverage);
         }
-        
+
+    
+
+        [TestCase(7.6, 8.9, 1)]
+        [TestCase(9.3, 8.4, -1)]
+        [TestCase(8.4, 8.4, 0)]
+        public void test_CompareTo_GeneralAverage(double firstAvg, double secondAvg, int expectedResult)
+        {
+            applicant.GeneralAverage = firstAvg;
+            applicantToCompare.GeneralAverage = secondAvg;
+            int compareResult = applicant.CompareTo(applicantToCompare);
+            Assert.AreEqual(compareResult, expectedResult);
+        }
+
+        [TestCase(8.2, 9.4, 1)]
+        [TestCase(9.4, 7.4, -1)]
+        public void test_CompareTo_TestMark(double firstTestMark, double secondTestMark,
+                                                                   int expectedResult)
+        {
+            applicant.GeneralAverage = 10.0;
+            applicantToCompare.GeneralAverage = 10.0;
+            applicant.TestMark = firstTestMark;
+            applicantToCompare.TestMark = secondTestMark;
+            int compareResult = applicant.CompareTo(applicantToCompare);
+            Assert.AreEqual(compareResult, expectedResult);
+        }
+
+        [TestCase(8.2, 9.4, 1)]
+        [TestCase(9.4, 7.4, -1)]
+        public void test_CompareTo_AvgExamen(double firstAvgExamen, double secondAvgExamen,
+                                                                   int expectedResult)
+        {
+            applicant.GeneralAverage = 10.0;
+            applicantToCompare.GeneralAverage = 10.0;
+            applicant.TestMark = 9.3;
+            applicantToCompare.TestMark = 9.3;
+            applicant.AvgExamen = firstAvgExamen;
+            applicantToCompare.AvgExamen = secondAvgExamen;
+            int compareResult = applicant.CompareTo(applicantToCompare);
+            Assert.AreEqual(compareResult, expectedResult);
+        }
     }
 }

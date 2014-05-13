@@ -259,15 +259,15 @@ namespace AdmissionLibrary_Tests
 
                 /* setup the set of expected results */
                 expectedResults = new List<IResult>();
-                expectedResults.Add(new Result(new Applicant("2900610155203", "Irina", "Naum", "V.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.70, 9.30, 10.0), "ADMIS/BUGET"));
-                expectedResults.Add(new Result(new Applicant("2891245633221", "Dana", "Harbon", "A.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 7.90, 8.30, 9.50), "ADMIS/TAXA"));
-                expectedResults.Add(new Result(new Applicant("2904533456878", "Corina", "Micla", "T.", "Iasi", "Iasi", "Colegiul National", 9.20, 9.40, 10.0), "ADMIS/TAXA"));
+                expectedResults.Add(new Result(new Applicant("2904533456878", "Corina", "Micla", "T.", "Iasi", "Iasi", "Colegiul National", 9.20, 9.40, 10.0), "ADMIS/BUGET"));
                 expectedResults.Add(new Result(new Applicant("1891212566544", "Andrei", "Juve", "V.", "Iasi", "Iasi", "Liceul de Informatica Grigore Moisil", 9.70, 7.80, 10.0), "ADMIS/TAXA"));
-                expectedResults.Add(new Result(new Applicant("1901009778987", "Serban", "Donise", "B.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 6.45, 9.00, 9.50), "ADMIS/TAXA"));
+                expectedResults.Add(new Result(new Applicant("2900610155203", "Irina", "Naum", "V.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.70, 9.30, 10.0), "ADMIS/TAXA"));
+                expectedResults.Add(new Result(new Applicant("2891023990887", "Renata", "Paun", "A.", "Iasi", "Iasi", "Colegiul National Costache Negruzzi", 9.90, 6.30, 9.50), "ADMIS/TAXA"));
                 expectedResults.Add(new Result(new Applicant("1900808776443", "Tudor", "Rent", "R.", "Iasi", "Iasi", "Liceul de Informatica Grigore Moisil", 9.40, 6.30, 10.0), "ADMIS/TAXA"));
-                expectedResults.Add(new Result(new Applicant("2891023990887", "Renata", "Paun", "A.", "Iasi", "Iasi", "Colegiul National Costache Negruzzi", 9.90, 6.30, 9.50), "RESPINS"));
-                expectedResults.Add(new Result(new Applicant("1890306789086", "George", "Cojun", "T.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.45, 8.90, 9.30), "RESPINS"));
-
+                expectedResults.Add(new Result(new Applicant("1890306789086", "George", "Cojun", "T.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.45, 8.90, 9.30), "ADMIS/TAXA"));
+                expectedResults.Add(new Result(new Applicant("2891245633221", "Dana", "Harbon", "A.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 7.90, 8.30, 9.50), "RESPINS"));
+                expectedResults.Add(new Result(new Applicant("1901009778987", "Serban", "Donise", "B.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 6.45, 9.00, 9.50), "RESPINS"));                
+                
                 /* mock the behaviour of getApplicants method providing the param*/
                 Expect.Once.On(dao).Method("getApplicants").Will(Return.Value(givenApplicants));
 
