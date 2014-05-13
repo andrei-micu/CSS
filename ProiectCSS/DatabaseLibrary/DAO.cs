@@ -6,7 +6,7 @@ using System.IO;
 
 namespace DatabaseLibrary
 {
-    public class DAO
+    public class DAO : DatabaseLibrary.IDAO
     {
         private string APPLICANTS_FILE = "applicants.txt";
         private string RESULTS_FILE = "results.txt";
@@ -23,7 +23,7 @@ namespace DatabaseLibrary
             File.WriteAllText(RESULTS_FILE, String.Empty);
         }
 
-        public void insertApplicant(Applicant applicant)
+        public void insertApplicant(IApplicant applicant)
         {
             checkCreateFile(APPLICANTS_FILE);
 
@@ -60,7 +60,7 @@ namespace DatabaseLibrary
             }
         }
 
-        public void updateApplicant(string cnp, Applicant applicant)
+        public void updateApplicant(string cnp, IApplicant applicant)
         {
             checkCreateFile(APPLICANTS_FILE);
 
@@ -81,13 +81,13 @@ namespace DatabaseLibrary
             }
         }
 
-        public void insertResults(List<Result> results)
+        public void insertResults(IList<IResult> results)
         {
             checkCreateFile(RESULTS_FILE);
 
-            foreach (Result result in results)
+            foreach (IResult result in results)
             {
-                Applicant applicant = result.applicant;
+                IApplicant applicant = result.applicant;
                 string[] applicantInfo = { applicant.Cnp, applicant.FirstName, applicant.LastName, applicant.FatherInitial, applicant.City, 
                                            applicant.Locality, applicant.SchoolName, applicant.TestMark.ToString(), applicant.AvgExamen.ToString(), 
                                            applicant.DomainMark.ToString(), applicant.GeneralAverage.ToString(), result.result};
@@ -95,11 +95,11 @@ namespace DatabaseLibrary
             }
         }
 
-        public List<Applicant> getApplicants()
+        public IList<IApplicant> getApplicants()
         {
             checkCreateFile(APPLICANTS_FILE);
 
-            List<Applicant> applicants = new List<Applicant>();
+            IList<IApplicant> applicants = new List<IApplicant>();
             string applicantRow;
             StreamReader streamReader = new StreamReader(APPLICANTS_FILE);
             try
@@ -109,7 +109,7 @@ namespace DatabaseLibrary
                     while ((applicantRow = streamReader.ReadLine()) != null)
                     {
                         string[] applicantInfo = applicantRow.Split(',');
-                        Applicant applicant = new Applicant(applicantInfo[0], applicantInfo[1], applicantInfo[2], applicantInfo[3], applicantInfo[4], applicantInfo[5],
+                        IApplicant applicant = new Applicant(applicantInfo[0], applicantInfo[1], applicantInfo[2], applicantInfo[3], applicantInfo[4], applicantInfo[5],
                                               applicantInfo[6], Convert.ToDouble(applicantInfo[7]), Convert.ToDouble(applicantInfo[8]), Convert.ToDouble(applicantInfo[9]));
                         applicant.GeneralAverage = Convert.ToDouble(applicantInfo[10]);
                         applicants.Add(applicant);
@@ -129,12 +129,12 @@ namespace DatabaseLibrary
         }
 
 
-        public List<Result> getResultsByType(string type)
+        public IList<IResult> getResultsByType(string type)
         {
             checkCreateFile(RESULTS_FILE);
-            List<Result> results = getResults();
-            List<Result> resultsByType = new List<Result>();
-            foreach (Result result in results)
+            IList<IResult> results = getResults();
+            IList<IResult> resultsByType = new List<IResult>();
+            foreach (IResult result in results)
             {
                 if (result.result == type)
                 {
@@ -144,10 +144,10 @@ namespace DatabaseLibrary
             return resultsByType;
         }
 
-        public List<Result> getResults()
+        public IList<IResult> getResults()
         {
             checkCreateFile(RESULTS_FILE);
-            List<Result> results = new List<Result>();
+            IList<IResult> results = new List<IResult>();
             string line;
             StreamReader streamReader = new StreamReader(RESULTS_FILE);
             try
@@ -157,11 +157,11 @@ namespace DatabaseLibrary
                     while ((line = streamReader.ReadLine()) != null)
                     {
                         string[] applicantInfo = line.Split(',');
-                        Applicant applicant = new Applicant(applicantInfo[0], applicantInfo[1], applicantInfo[2], applicantInfo[3], applicantInfo[4], applicantInfo[5],
+                        IApplicant applicant = new Applicant(applicantInfo[0], applicantInfo[1], applicantInfo[2], applicantInfo[3], applicantInfo[4], applicantInfo[5],
                                               applicantInfo[6], Convert.ToDouble(applicantInfo[7]), Convert.ToDouble(applicantInfo[8]), Convert.ToDouble(applicantInfo[9]));
                         applicant.GeneralAverage = Convert.ToDouble(applicantInfo[10]);
                         String resultString = applicantInfo[11];
-                        Result result = new Result(applicant, resultString);
+                        IResult result = new Result(applicant, resultString);
                         results.Add(result);
                     }
                 }

@@ -53,6 +53,12 @@ namespace ForTest
 
             //test get applicants and set results
             admission.calculateAndPublishResults();
+            IList<IResult> results = dao.getResults();
+            foreach(IResult result in results)
+            {
+                Console.WriteLine(result.applicant.Cnp + " " + result.result);
+            }
+            
         }
 
         static void Main(string[] args)

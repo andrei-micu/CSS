@@ -6,26 +6,28 @@ using DatabaseLibrary;
 
 namespace AdmissionLibrary
 {
-    public class Admission
+    public class Admission : AdmissionLibrary.IAdmission
     {
-        private DAO dao;
+        private IDAO dao;
         private const int BUGET_PLACES = 1;//100;
         private const int TAX_PLACES = 5;//150;
         private const string BUGET = "ADMIS/BUGET";
         private const string TAX = "ADMIS/TAXA";
         private const string REJECT = "RESPINS";
 
-        public Admission(DAO dao)
+        public Admission(IDAO dao)
         {
             this.dao = dao;
         }
 
         /* --- Introducerea datelor --- */
 
-        public void insertApplicant(Applicant applicant)
+        public void insertApplicant(IApplicant applicant)
         {
+            if (applicant == null)
+                return;
             applicant.GeneralAverage = calculateAverage(applicant);
-            dao.insertApplicant(applicant);
+            dao.insertApplicant(applicant);             
         }
 
         public void deleteApplicant(string cnp)
@@ -33,8 +35,10 @@ namespace AdmissionLibrary
             dao.deleteApplicant(cnp);
         }
 
-        public void updateApplicant(string cnp, Applicant applicant)
+        public void updateApplicant(string cnp, IApplicant applicant)
         {
+            if (applicant == null)
+                return;
             applicant.GeneralAverage = calculateAverage(applicant);
             dao.updateApplicant(cnp, applicant);
         }
@@ -42,10 +46,11 @@ namespace AdmissionLibrary
 
         /* --- Calcularea mediilor de admitere --- */
 
-        private double calculateAverage(Applicant applicant)
+        private double calculateAverage(IApplicant applicant)
         {
             double average = applicant.TestMark * 0.5 + applicant.DomainMark * 0.3 + applicant.AvgExamen * 0.2;
-            return average;
+            return average;        
+            
         }
 
 
@@ -53,8 +58,11 @@ namespace AdmissionLibrary
 
         public void calculateAndPublishResults()
         {
-            List<Applicant> applicants = dao.getApplicants();
-            List<Result> results = new List<Result>();
+            IList<IApplicant> applicants = dao.getApplicants();
+            if (applicants.Count == 0)
+                return;
+
+            IList<IResult> results = new List<IResult>();
             setTop(applicants);
             int index = 0;
             while (index < BUGET_PLACES && index < applicants.Count)
@@ -74,11 +82,12 @@ namespace AdmissionLibrary
             }
             dao.clearResults();
             dao.insertResults(results);
+            
         }
 
-        private void setTop(List<Applicant> applicants)
+        private void setTop(IList<IApplicant> applicants)
         {
-            applicants.Sort();
+            (applicants.Cast<IApplicant>().ToList()).Sort();
         }
 
         /* --- Popularea bazei de date cu date de test --- */
@@ -97,6 +106,8 @@ namespace AdmissionLibrary
             insertApplicant(new Applicant("1890306789086", "George", "Cojun", "T.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.45, 8.90, 9.30));
             insertApplicant(new Applicant("2900212987654", "Laura", "Leonte", "M.", "Iasi", "Iasi", "Liceul de Informatica Grigore Moisil", 9.10, 9.60, 9.80));
             insertApplicant(new Applicant("1890101987432", "Mihai", "Tatar", "V.", "Iasi", "Iasi", "Colegiul National Costache Negruzzi", 8.90, 9.60, 9.70));
+
+
         }
     }
 }

@@ -111,7 +111,7 @@ namespace WindowsApp
             {
                 string pin = cnp_textbox.Text;
                 string first_name = first_name_textbox.Text;
-                string father_initial = father_initial_textbox.Text;
+                string father_initial = father_initial_textbox.Text +".";
                 string last_name = last_name_textbox.Text;
                 string city = city_textbox.Text;
                 string locality = locality_textbox.Text;
@@ -120,11 +120,20 @@ namespace WindowsApp
                 double domain_mark = Convert.ToDouble(domain_mark_textbox.Text);
                 double exam_average_mark = Convert.ToDouble(exam_average_textbox.Text);
 
-                admission.insertApplicant(new Applicant(pin, first_name, last_name, father_initial, city, locality,
+                try
+                {
+                    admission.insertApplicant(new Applicant(pin, first_name, last_name, father_initial, city, locality,
                     school_name, test_mark, exam_average_mark, domain_mark));
-
-                data_tablelayoutpanel.Controls.OfType<TextBox>().ToList().ForEach(x => x.Text = string.Empty);
-                UpdateData();
+                    data_tablelayoutpanel.Controls.OfType<TextBox>().ToList().ForEach(x => x.Text = string.Empty);
+                    UpdateData();
+                    
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                }
+                
+                
             }
         }
 
@@ -148,7 +157,7 @@ namespace WindowsApp
         private void applicants_datagridview_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             string cnp = (string)applicants_datagridview.Rows[e.RowIndex].Cells[0].Value;
-            Applicant applicant = dao.getApplicants()[e.RowIndex];
+            IApplicant applicant = dao.getApplicants()[e.RowIndex];
             string property = applicants_datagridview.Columns[e.ColumnIndex].Name;
             
             if (e.ColumnIndex > 6)
