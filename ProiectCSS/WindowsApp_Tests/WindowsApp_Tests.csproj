@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9413934D-94A4-426E-9792-90BAA76491D6}</ProjectGuid>
+    <ProjectGuid>{A01C5487-34B8-4CEF-BBB7-32468A63D427}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DatabaseLibrary_Tests</RootNamespace>
-    <AssemblyName>DatabaseLibrary_Tests</AssemblyName>
+    <RootNamespace>WindowsApp_Tests</RootNamespace>
+    <AssemblyName>WindowsApp_Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -36,8 +36,8 @@
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,14 +45,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Applicant_Tests\Applicant_Tests.cs" />
-    <Compile Include="Database_Tests.cs" />
+    <Compile Include="MainWindow_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AdmissionLibrary\AdmissionLibrary.csproj">
+      <Project>{3B3AE089-F2D3-45B3-B018-09327D090079}</Project>
+      <Name>AdmissionLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DatabaseLibrary\DatabaseLibrary.csproj">
       <Project>{D19E8B36-A626-41E9-A9AE-4F773914D84D}</Project>
       <Name>DatabaseLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WindowsApp\WindowsApp.csproj">
+      <Project>{172DE806-317A-41AF-AE31-9C58A1471FE8}</Project>
+      <Name>WindowsApp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

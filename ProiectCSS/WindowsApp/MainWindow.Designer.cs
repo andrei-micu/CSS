@@ -397,33 +397,33 @@
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel data_tablelayoutpanel;
-        private System.Windows.Forms.Label first_name_label;
-        private System.Windows.Forms.Label father_initial_label;
-        private System.Windows.Forms.Label last_name_label;
-        private System.Windows.Forms.TextBox first_name_textbox;
-        private System.Windows.Forms.TextBox father_initial_textbox;
-        private System.Windows.Forms.TextBox last_name_textbox;
-        private System.Windows.Forms.Label city_label;
-        private System.Windows.Forms.Label locality_label;
-        private System.Windows.Forms.Label school_name_label;
-        private System.Windows.Forms.Label test_mark_label;
-        private System.Windows.Forms.Label domain_mark_label;
-        private System.Windows.Forms.Button submit_button;
-        private System.Windows.Forms.TextBox city_textbox;
-        private System.Windows.Forms.TextBox locality_textbox;
-        private System.Windows.Forms.TextBox school_name_textbox;
-        private System.Windows.Forms.TextBox test_mark_textbox;
-        private System.Windows.Forms.TextBox domain_mark_textbox;
-        private System.Windows.Forms.Label cnp_label;
-        private System.Windows.Forms.TextBox cnp_textbox;
-        private System.Windows.Forms.Label exam_average_label;
-        private System.Windows.Forms.TextBox exam_average_textbox;
-        private System.Windows.Forms.DataGridView applicants_datagridview;
-        private System.Windows.Forms.TabControl data_tabcontrol;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.DataGridView results_datagridview;
+        public System.Windows.Forms.TableLayoutPanel data_tablelayoutpanel;
+        public System.Windows.Forms.Label first_name_label;
+        public System.Windows.Forms.Label father_initial_label;
+        public System.Windows.Forms.Label last_name_label;
+        public System.Windows.Forms.TextBox first_name_textbox;
+        public System.Windows.Forms.TextBox father_initial_textbox;
+        public System.Windows.Forms.TextBox last_name_textbox;
+        public System.Windows.Forms.Label city_label;
+        public System.Windows.Forms.Label locality_label;
+        public System.Windows.Forms.Label school_name_label;
+        public System.Windows.Forms.Label test_mark_label;
+        public System.Windows.Forms.Label domain_mark_label;
+        public System.Windows.Forms.Button submit_button;
+        public System.Windows.Forms.TextBox city_textbox;
+        public System.Windows.Forms.TextBox locality_textbox;
+        public System.Windows.Forms.TextBox school_name_textbox;
+        public System.Windows.Forms.TextBox test_mark_textbox;
+        public System.Windows.Forms.TextBox domain_mark_textbox;
+        public System.Windows.Forms.Label cnp_label;
+        public System.Windows.Forms.TextBox cnp_textbox;
+        public System.Windows.Forms.Label exam_average_label;
+        public System.Windows.Forms.TextBox exam_average_textbox;
+        public System.Windows.Forms.DataGridView applicants_datagridview;
+        public System.Windows.Forms.TabControl data_tabcontrol;
+        public System.Windows.Forms.TabPage tabPage1;
+        public System.Windows.Forms.TabPage tabPage2;
+        public System.Windows.Forms.DataGridView results_datagridview;
 
     }
 }

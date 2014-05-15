@@ -8,13 +8,14 @@ using System.Text;
 using System.Windows.Forms;
 using DatabaseLibrary;
 using AdmissionLibrary;
+using System.Reflection;
 
 namespace WindowsApp
 {
     public partial class MainWindow : Form
     {
-        private DAO dao;
-        private Admission admission;
+        private IDAO dao;
+        private IAdmission admission;
 
         public MainWindow()
         {
@@ -24,12 +25,20 @@ namespace WindowsApp
             admission = new Admission(dao);
         }
 
+        public MainWindow(IDAO dao, IAdmission admission)
+        {
+            InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.dao = dao;
+            this.admission = admission;
+        }
+
         private void MainWindow_Load(object sender, EventArgs e)
         {
             if (dao.getApplicants().Count == 0)
             {
                 admission.populateDB();
-            }          
+            }
             UpdateData();
         }
 
@@ -101,7 +110,7 @@ namespace WindowsApp
             }
         }
 
-        private void add_button_Click(object sender, EventArgs e)
+        public void add_button_Click(object sender, EventArgs e)
         {
             if (data_tablelayoutpanel.Controls.OfType<TextBox>().Any(x => string.IsNullOrEmpty(x.Text)))
             {
@@ -111,7 +120,7 @@ namespace WindowsApp
             {
                 string pin = cnp_textbox.Text;
                 string first_name = first_name_textbox.Text;
-                string father_initial = father_initial_textbox.Text +".";
+                string father_initial = father_initial_textbox.Text + ".";
                 string last_name = last_name_textbox.Text;
                 string city = city_textbox.Text;
                 string locality = locality_textbox.Text;
@@ -120,24 +129,14 @@ namespace WindowsApp
                 double domain_mark = Convert.ToDouble(domain_mark_textbox.Text);
                 double exam_average_mark = Convert.ToDouble(exam_average_textbox.Text);
 
-                try
-                {
-                    admission.insertApplicant(new Applicant(pin, first_name, last_name, father_initial, city, locality,
+                admission.insertApplicant(new Applicant(pin, first_name, last_name, father_initial, city, locality,
                     school_name, test_mark, exam_average_mark, domain_mark));
-                    data_tablelayoutpanel.Controls.OfType<TextBox>().ToList().ForEach(x => x.Text = string.Empty);
-                    UpdateData();
-                    
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
-                }
-                
-                
+                data_tablelayoutpanel.Controls.OfType<TextBox>().ToList().ForEach(x => x.Text = string.Empty);
+                UpdateData();
             }
         }
 
-        private void UpdateData()
+        public void UpdateData()
         {
             applicants_datagridview.DataSource = dao.getApplicants();
             admission.calculateAndPublishResults();
@@ -154,12 +153,12 @@ namespace WindowsApp
             }).ToList();
         }
 
-        private void applicants_datagridview_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        public void applicants_datagridview_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             string cnp = (string)applicants_datagridview.Rows[e.RowIndex].Cells[0].Value;
             IApplicant applicant = dao.getApplicants()[e.RowIndex];
             string property = applicants_datagridview.Columns[e.ColumnIndex].Name;
-            
+
             if (e.ColumnIndex > 6)
             {
                 double value = (double)applicants_datagridview.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
@@ -170,12 +169,12 @@ namespace WindowsApp
                 string value = (string)applicants_datagridview.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                 applicant.GetType().GetProperty(property).SetValue(applicant, value, null);
             }
-            
+
             admission.updateApplicant(cnp, applicant);
             UpdateData();
         }
 
-        private void applicants_datagridview_KeyDown(object sender, KeyEventArgs e)
+        public void applicants_datagridview_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete && applicants_datagridview.SelectedRows.Count > 0)
             {
@@ -187,7 +186,5 @@ namespace WindowsApp
                 UpdateData();
             }
         }
-
-        
     }
 }
