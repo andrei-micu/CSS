@@ -35,7 +35,7 @@ namespace DatabaseLibrary_Tests
         }
 
         [Test]
-        public void test_GetApplicants()
+        public void test_1_GetApplicants()
         {
             List<Applicant> expectedApplicants = new List<Applicant>();
             expectedApplicants.Add(new Applicant("2900610155203", "Irina", "Naum", "V.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.70, 9.30, 10.0));
@@ -48,6 +48,27 @@ namespace DatabaseLibrary_Tests
             expectedApplicants.Add(new Applicant("1890306789086", "George", "Cojun", "T.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.45, 8.90, 9.30));
 
             CollectionAssert.AreEqual(dao.getApplicants(), expectedApplicants);
+        }
+
+        [Test]
+        public void test_2_Insert_ExistentApplicant()
+        {
+            dao.insertApplicant(new Applicant("1890306789086", "Alexandra", "Miron", "V.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.70, 9.30, 10.0));
+            StringAssert.AreEqualIgnoringCase(getContentFromFile(APPLICANTS_FILE), initialContent);
+        }
+
+        [Test]
+        public void test_3_Update_InexistentApplicant()
+        {
+            dao.updateApplicant("9990306789086", new Applicant("9990101987488", "Marius", "Miron", "V.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.70, 9.30, 10.0));
+            StringAssert.AreEqualIgnoringCase(getContentFromFile(APPLICANTS_FILE), initialContent);
+        }
+
+        [Test]
+        public void test_4_Delete_InexistentApplicant()
+        {
+            dao.deleteApplicant("9990306789086");
+            StringAssert.AreEqualIgnoringCase(getContentFromFile(APPLICANTS_FILE), initialContent);
         }
 
         [Test]
@@ -76,26 +97,6 @@ namespace DatabaseLibrary_Tests
             StringAssert.DoesNotContain("9994533456878,Corina,Micla,T.,Iasi,Iasi,Colegiul National, 9.20, 9.40, 10.0", content);
         }
 
-        [Test]
-        public void test_InsertExistentApplicant()
-        {
-            dao.insertApplicant(new Applicant("9999999999000", "Alexandra", "Miron", "V.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.70, 9.30, 10.0));
-            FileAssert.AreEqual(APPLICANTS_FILE, APPLICANTS_FILE);
-        }
-
-        [Test]
-        public void test_UpdateInexistentApplicant()
-        {
-            dao.updateApplicant("0000101987411", new Applicant("1890101987488", "Marius", "Miron", "V.", "Iasi", "Iasi", "Colegiul National Emil Racovita", 8.70, 9.30, 10.0));
-            FileAssert.AreEqual(APPLICANTS_FILE, APPLICANTS_FILE);
-        }
-
-        [Test]
-        public void teste_DeleteInexistentApplicant()
-        {
-            dao.deleteApplicant("0000101987411");
-            FileAssert.AreEqual(APPLICANTS_FILE, APPLICANTS_FILE);
-        }
 
         [TestFixtureTearDown]
         public void restoreState()
