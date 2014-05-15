@@ -21,7 +21,7 @@
         <th>DomainMark</th>
         <th>GeneralAverage</th>
     </tr>
-    @foreach(DatabaseLibrary.Applicant applicant in ViewBag.DAO.getApplicants()){
+    @foreach(DatabaseLibrary.Applicant applicant in ViewBag.Applicants){
         <tr>
             <td>@applicant.Cnp</td>
             <td>@applicant.FirstName</td>
@@ -51,7 +51,7 @@
         <th>GeneralAverage</th>
         <th>Result</th>
     </tr>
-    @foreach(DatabaseLibrary.Result result in ViewBag.DAO.getResults()){
+    @foreach(DatabaseLibrary.Result result in ViewBag.Results){
         <tr>
             <td>@result.applicant.Cnp</td>
             <td>@result.applicant.FirstName</td>

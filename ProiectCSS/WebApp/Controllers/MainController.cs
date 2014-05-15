@@ -10,13 +10,19 @@ namespace WebApp.Controllers
 {
     public class MainController : Controller
     {
-        private DAO dao;
-        private Admission admission;
+        private IDAO dao;
+        private IAdmission admission;
 
         public MainController()
         {
-            dao = new DAO();
-            admission = new Admission(dao);
+            this.dao = new DAO();
+            this.admission = new Admission(dao);
+        }
+
+        public MainController(IDAO dao, IAdmission admission)
+        {
+            this.dao = dao;
+            this.admission = admission;
         }
 
         //
@@ -27,8 +33,8 @@ namespace WebApp.Controllers
         {
             admission.calculateAndPublishResults();
 
-            ViewBag.DAO = dao;
-            ViewBag.Admission = admission;
+            ViewBag.Applicants = dao.getApplicants();
+            ViewBag.Results = dao.getResults();
             return View();
         }
 
@@ -36,14 +42,14 @@ namespace WebApp.Controllers
         // POST: /Main/
 
         [HttpPost]
-        public ActionResult Index(Applicant applicant, string submitAction)
+        public ActionResult Index(IApplicant applicant, string submitAction)
         {
             dispatchAction(applicant, submitAction);
 
             return Index();
         }
 
-        private void dispatchAction(Applicant applicant, string submitAction)
+        private void dispatchAction(IApplicant applicant, string submitAction)
         {
             switch (submitAction)
             {
