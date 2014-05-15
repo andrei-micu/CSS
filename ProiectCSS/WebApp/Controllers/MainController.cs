@@ -47,16 +47,16 @@ namespace WebApp.Controllers
         {
             switch (submitAction)
             {
-                case "Insert applicant":
+                case Constants.InsertApplicant:
                     admission.insertApplicant(applicant);
                     break;
-                case "Update applicant":
+                case Constants.UpdateApplicant:
                     admission.updateApplicant(applicant.Cnp, applicant);
                     break;
-                case "Delete applicant":
+                case Constants.DeleteApplicant:
                     admission.deleteApplicant(applicant.Cnp);
                     break;
-                case "Repopulate DB":
+                case Constants.RepopulateDB:
                     admission.populateDB();
                     break;
             }
