@@ -27,7 +27,7 @@ namespace AdmissionLibrary
             if (applicant == null)
                 return;
             applicant.GeneralAverage = calculateAverage(applicant);
-            dao.insertApplicant(applicant);             
+            dao.insertApplicant(applicant);           
         }
 
         public void deleteApplicant(string cnp)

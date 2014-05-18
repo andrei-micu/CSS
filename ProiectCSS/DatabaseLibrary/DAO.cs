@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
 
 namespace DatabaseLibrary
 {
@@ -25,7 +26,23 @@ namespace DatabaseLibrary
 
         public void insertApplicant(IApplicant applicant)
         {
+            /* assertion for precondition applicant */
+            Debug.Assert(applicant != null, "Applicant should not be null");
+            Debug.Assert(applicant.GeneralAverage >= 1.0 && applicant.GeneralAverage <= 10.0);
+            Debug.Assert(applicant.TestMark >= 1.0 && applicant.TestMark <= 10.0);
+            Debug.Assert(applicant.DomainMark >= 1.0 && applicant.DomainMark <= 10.0);
+            Debug.Assert(applicant.AvgExamen >= 1.0 && applicant.AvgExamen <= 10.0);
+            Debug.Assert(applicant.FatherInitial.Length == 2);
+            Debug.Assert(applicant.FirstName.Length > 2);
+            Debug.Assert(applicant.LastName.Length > 2);
+            Debug.Assert(applicant.Locality.Length > 2);
+            Debug.Assert(applicant.Cnp.Length == 13);
+
+            /* assertion the the path for the file was not modified */
+            Debug.Assert(APPLICANTS_FILE.Equals("applicants.txt") , "The path for the file was changed without permission");
             checkCreateFile(APPLICANTS_FILE);
+            /*assertion that the file should exist at this time*/
+            Debug.Assert(File.Exists(APPLICANTS_FILE) == true, "The file should have been created!");
 
             string[] applicantInfo = { applicant.Cnp, applicant.FirstName, applicant.LastName, applicant.FatherInitial, applicant.City, 
                                        applicant.Locality, applicant.SchoolName, applicant.TestMark.ToString(), applicant.AvgExamen.ToString(), 
@@ -35,20 +52,36 @@ namespace DatabaseLibrary
             finalApplicants = allApplicants.Where(x => x.IndexOf(applicant.Cnp) < 0).ToList();
             if (finalApplicants.Count == allApplicants.Count)
             {
+                /* recheck that applicant is not already inserted */
+                Debug.Assert(allApplicants.Where(x => x.IndexOf(applicant.Cnp) >= 0).ToList().Count == 0, "Trying to insert a applicant that already exists!");
                 File.AppendAllText(APPLICANTS_FILE, string.Join(",", applicantInfo) + Environment.NewLine);
             }
             else
             {
+                /* recheck that a new applicant should be inserted */
+                Debug.Assert(finalApplicants.Count < allApplicants.Count, "New applicant doesn't exists, but is not added!");
                 Console.WriteLine("The applicant already exists!");
             }
         }
 
         public void deleteApplicant(string cnp)
         {
+            /*precondition assertion on CNP format*/
+            Debug.Assert(cnp.Length == 13, "CNP format not respected!");
+
+            /* assertions for file, it should have the same path and should already exist when deletion is called */
+            Debug.Assert(APPLICANTS_FILE.Equals("applicants.txt"), "The path for the file was changed without permission");
+            Debug.Assert(File.Exists(APPLICANTS_FILE) == true, "The file should have been created!");
+
             checkCreateFile(APPLICANTS_FILE);
+            
 
             List<string> finalApplicants;
+            
             List<string> allApplicants = File.ReadAllLines(APPLICANTS_FILE).ToList();
+            /* assertion regarding the length of the applicants list*/
+            Debug.Assert(allApplicants.Count > 0 , "A deletion occurs only if there is at least an applicant");
+            Debug.Assert(allApplicants.Count == File.ReadLines(APPLICANTS_FILE).Count(), "The length of the applicants should be the same as lines in the file");
             finalApplicants = allApplicants.Where(x => x.IndexOf(cnp) < 0).ToList();
             if (finalApplicants.Count < allApplicants.Count)
             {
@@ -180,6 +213,8 @@ namespace DatabaseLibrary
 
         public void checkCreateFile(string fileName)
         {
+            Debug.Assert(fileName != null);
+            Debug.Assert(fileName != "");
             FileStream fs = null;
             if (!File.Exists(fileName))
             {
