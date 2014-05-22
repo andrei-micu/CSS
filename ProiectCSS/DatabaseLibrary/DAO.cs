@@ -44,7 +44,7 @@ namespace DatabaseLibrary
             if (finalApplicants.Count == allApplicants.Count)
             {
                 /* recheck that applicant is not already inserted */
-                Debug.Assert(allApplicants.Where(x => x.IndexOf(applicant.Cnp) >= 0).ToList().Count == 0, "Trying to insert a applicant that already exists!");
+                //Debug.Assert(allApplicants.Where(x => x.IndexOf(applicant.Cnp) >= 0).ToList().Count == 0, "Trying to insert a applicant that already exists!");
                 File.AppendAllText(APPLICANTS_FILE, string.Join(",", applicantInfo) + Environment.NewLine);
             }
             else
@@ -138,7 +138,11 @@ namespace DatabaseLibrary
 
         public IList<IApplicant> getApplicants()
         {
+            /* assertion the the path for the file was not modified */
+            Debug.Assert(APPLICANTS_FILE.Equals("applicants.txt"), "The path for the file was changed without permission");
             checkCreateFile(APPLICANTS_FILE);
+            /* assertion that the file should exist at this time */
+            Debug.Assert(File.Exists(APPLICANTS_FILE) == true, "The file should have been created!");
 
             IList<IApplicant> applicants = new List<IApplicant>();
             string applicantRow;
@@ -153,6 +157,8 @@ namespace DatabaseLibrary
                         IApplicant applicant = new Applicant(applicantInfo[0], applicantInfo[1], applicantInfo[2], applicantInfo[3], applicantInfo[4], applicantInfo[5],
                                               applicantInfo[6], Convert.ToDouble(applicantInfo[7]), Convert.ToDouble(applicantInfo[8]), Convert.ToDouble(applicantInfo[9]));
                         applicant.GeneralAverage = Convert.ToDouble(applicantInfo[10]);
+                        /* check that the read applicant has correct format */
+                        checkApplicantPreconditions(applicant);
                         applicants.Add(applicant);
                     }
                 }
@@ -240,6 +246,7 @@ namespace DatabaseLibrary
             Debug.Assert(applicant.TestMark >= 1.0 && applicant.TestMark <= 10.0);
             Debug.Assert(applicant.DomainMark >= 1.0 && applicant.DomainMark <= 10.0);
             Debug.Assert(applicant.AvgExamen >= 1.0 && applicant.AvgExamen <= 10.0);
+            //Debug.Assert(applicant.GeneralAverage == (applicant.TestMark * 0.5 + applicant.DomainMark * 0.3 + applicant.AvgExamen * 0.2), "The general average is not calculated!");
             Debug.Assert(applicant.FatherInitial.Length == 2);
             Debug.Assert(applicant.FirstName.Length > 2);
             Debug.Assert(applicant.LastName.Length > 2);
