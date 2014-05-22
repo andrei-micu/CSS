@@ -58,6 +58,13 @@ namespace ForTest
             {
                 Console.WriteLine(result.applicant.Cnp + " " + result.result);
             }
+
+            IList<IResult> rejects = dao.getResultsByType("RESPINS");
+            Console.WriteLine();
+            foreach (IResult result in rejects)
+            {
+                Console.WriteLine(result.applicant.Cnp + " " + result.result);
+            }
             
         }
 

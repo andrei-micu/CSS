@@ -178,11 +178,15 @@ namespace DatabaseLibrary
 
         public IList<IResult> getResultsByType(string type)
         {
+            Debug.Assert(RESULTS_FILE.Equals("results.txt"));
             checkCreateFile(RESULTS_FILE);
+            Debug.Assert(File.Exists(RESULTS_FILE) == true);
             IList<IResult> results = getResults();
             IList<IResult> resultsByType = new List<IResult>();
             foreach (IResult result in results)
             {
+                checkApplicantPreconditions(result.applicant);
+                Debug.Assert(result.result != null);
                 if (result.result == type)
                 {
                     resultsByType.Add(result);
@@ -193,7 +197,9 @@ namespace DatabaseLibrary
 
         public IList<IResult> getResults()
         {
-            checkCreateFile(RESULTS_FILE);
+            Debug.Assert(RESULTS_FILE.Equals("results.txt"));
+            checkCreateFile(RESULTS_FILE);            
+            Debug.Assert(File.Exists(RESULTS_FILE) == true);
             IList<IResult> results = new List<IResult>();
             string line;
             StreamReader streamReader = new StreamReader(RESULTS_FILE);
@@ -207,11 +213,14 @@ namespace DatabaseLibrary
                         IApplicant applicant = new Applicant(applicantInfo[0], applicantInfo[1], applicantInfo[2], applicantInfo[3], applicantInfo[4], applicantInfo[5],
                                               applicantInfo[6], Convert.ToDouble(applicantInfo[7]), Convert.ToDouble(applicantInfo[8]), Convert.ToDouble(applicantInfo[9]));
                         applicant.GeneralAverage = Convert.ToDouble(applicantInfo[10]);
-                        String resultString = applicantInfo[11];
+                        String resultString = applicantInfo[11]; 
                         IResult result = new Result(applicant, resultString);
+                        checkApplicantPreconditions(result.applicant);
+                        Debug.Assert(result.result != null);
                         results.Add(result);
                     }
                 }
+                Debug.Assert(results.Count == File.ReadLines(RESULTS_FILE).Count());
                 return results;
             }
             catch (Exception e)
